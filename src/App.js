@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { Component } from 'react';
 
+axios.defaults.baseURL = "https://school-server-59er.onrender.com"
+
 class App extends Component {
 
   state={
@@ -8,7 +10,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const response = await axios.get("https://school-server-59er.onrender.com");
+    const response = await axios.get("/");
     this.setState({response: response});
   }
 
