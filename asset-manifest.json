@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/school_client/static/js/main.fc276695.js",
+    "main.js": "/school_client/static/js/main.09a93d85.js",
     "index.html": "/school_client/index.html",
-    "main.fc276695.js.map": "/school_client/static/js/main.fc276695.js.map"
+    "main.09a93d85.js.map": "/school_client/static/js/main.09a93d85.js.map"
   },
   "entrypoints": [
-    "static/js/main.fc276695.js"
+    "static/js/main.09a93d85.js"
   ]
 }
