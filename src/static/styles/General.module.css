@@ -1,0 +1,91 @@
+body{
+    margin: 0;
+}
+
+h1{
+    font-size: 92px;
+}
+
+.test, .user{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 500px;
+    border: 1px solid gray;
+    margin-bottom: 10px;
+    padding: 10px 50px;
+    border-radius: 20px;
+}
+
+.button{
+    font-size: 12px;
+    padding: 10px;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+}
+
+.success{
+    background-color: green;
+}
+
+.danger{
+    background-color: red;
+}
+
+.white{
+    background-color: white;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 12px;
+	color: black;
+	padding: 10px;
+}
+
+.addButton{
+    margin-bottom: 10px;
+}
+
+.banner{
+    width: 100vw;
+    height: 300px;
+    border: 1px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../images/books.jpg);
+    background-size: contain;
+    position: fixed;
+}
+
+.intro{
+    background-color: white;
+    border-radius: 12px;
+}
+
+.content{
+    position: fixed;
+    top: 310px;
+    height: 400px;
+    width: 95vw;
+    overflow: scroll;
+    padding-left: 50px;
+}
+
+.formElement{
+    display: flex;
+    gap: 10px;
+}
+
+.container{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+}
