@@ -25,6 +25,7 @@ function App() {
     <b>Refreshing user...</b>
   ) : (
     <Routes>
+      <Route path="/school_client" element={<p>Hello, world!</p>}></Route>
       <Route
         path="/"
         element={
