@@ -43,7 +43,7 @@ function LoginPage() {
             </div>
             <Button variant="contained" type="submit" className={css.button}>Submit</Button>
         </form>
-        <p>You don't have an account? <Link to="/">REGISTER</Link></p>
+        <p>You don't have an account? <Link to="/school_client">REGISTER</Link></p>
     </div>)
 
 }

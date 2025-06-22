@@ -64,7 +64,7 @@ function RegistrationPage() {
             </div>
             <Button variant="contained" type="submit" className={css.button}>Submit</Button>
         </form>
-        <p>You already have an account? <Link to="/login">LOGIN</Link></p>
+        <p>You already have an account? <Link to="/school_client/login">LOGIN</Link></p>
     </div>)
 
 }
