@@ -25,21 +25,20 @@ function App() {
     <b>Refreshing user...</b>
   ) : (
     <Routes>
-      <Route path="/school_client" element={<p>Hello, world!</p>}></Route>
       <Route
-        path="/"
+        path="/school_client"
         element={
-          <RestrictedRoute redirectTo="/index" component={<RegistrationPage />} />
+          <RestrictedRoute redirectTo="/school_client/index" component={<RegistrationPage />} />
         }
       />
       <Route
-        path="/login"
+        path="/school_client/login"
         element={
-          <RestrictedRoute redirectTo="/index" component={<LoginPage />} />
+          <RestrictedRoute redirectTo="/school_client/index" component={<LoginPage />} />
         }
       />
       <Route
-        path="/index"
+        path="/school_client/index"
         element={
           <MainPage />
         }
