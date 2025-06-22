@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/school_client/static/css/main.30dd1999.css",
-    "main.js": "/school_client/static/js/main.da925b4a.js",
+    "main.js": "/school_client/static/js/main.1556e354.js",
     "static/media/books.jpg": "/school_client/static/media/books.0ac9675ce8574ee50542.jpg",
     "index.html": "/school_client/index.html",
     "main.30dd1999.css.map": "/school_client/static/css/main.30dd1999.css.map",
-    "main.da925b4a.js.map": "/school_client/static/js/main.da925b4a.js.map"
+    "main.1556e354.js.map": "/school_client/static/js/main.1556e354.js.map"
   },
   "entrypoints": [
     "static/css/main.30dd1999.css",
-    "static/js/main.da925b4a.js"
+    "static/js/main.1556e354.js"
   ]
 }
