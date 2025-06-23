@@ -15,7 +15,7 @@ export const fetchUsers = createAsyncThunk("users/fetchAll",
     async (_, thunkAPI) => {
         try {
             const response = await axios.get("/user/all");
-            return response.data;
+            return response.data; //This is action.payload
         } catch (e) {
             return thunkAPI.rejectWithValue(e.message);
         }

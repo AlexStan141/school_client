@@ -94,3 +94,23 @@ h1{
     display: flex;
     gap: 10px;
 }
+
+input, textarea{
+    font-size: 16px;
+}
+
+textarea{
+    width: 500px;
+}
+
+.fieldContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.field{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}

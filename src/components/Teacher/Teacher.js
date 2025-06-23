@@ -35,7 +35,12 @@ function Teacher() {
                     ?
                     <div key={test._id} className={css.test}>
                         <p>{test.title}({test.questions.length} questions)</p>
-                        <button className={css.button + " " + css.success}>Edit</button>
+                        <div className={css.actions}>
+                            <button className={css.button + " " + css.success} onClick={() => {
+                                navigate(`/school_client/index/viewTest/${test._id}`)
+                            }}>View</button>
+                            <button className={css.button + " " + css.danger}>Delete</button>
+                        </div>
                     </div>
                     :
                     <></>

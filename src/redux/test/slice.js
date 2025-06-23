@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchTests, fetchTeacherTests } from "./operations";
+import { fetchTests, fetchTeacherTests, getTest } from "./operations";
 
 const handlePending = state => {
     state.isLoading = true;
@@ -15,7 +15,8 @@ const testsSlice = createSlice({
     initialState: {
         items: [],
         isLoading: false,
-        error: null
+        error: null,
+        displayedTest: {}
     },
     extraReducers: builder => {
         builder
@@ -23,6 +24,8 @@ const testsSlice = createSlice({
         .addCase(fetchTests.rejected, handleRejected)
         .addCase(fetchTeacherTests.pending, handlePending)
         .addCase(fetchTeacherTests.rejected, handleRejected)
+        .addCase(getTest.pending, handlePending)
+        .addCase(getTest.rejected, handleRejected)
         .addCase(fetchTests.fulfilled, (state, action) => {
             state.items = action.payload;
             state.error = null;
@@ -30,6 +33,11 @@ const testsSlice = createSlice({
         })
         .addCase(fetchTeacherTests.fulfilled, (state, action) => {
             state.items = action.payload;
+            state.error = null;
+            state.isLoading = false;
+        })
+        .addCase(getTest.fulfilled, (state, action) => {
+            state.displayedTest = action.payload;
             state.error = null;
             state.isLoading = false;
         })

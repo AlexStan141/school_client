@@ -47,3 +47,14 @@ export const addTest = createAsyncThunk("tests/addTest",
         }
     }
 )
+
+export const getTest = createAsyncThunk("tests/getTest",
+    async(testId, thunkAPI) => {
+        try{
+            const response = await axios.get(`/test/${testId}`);
+            return response.data.data;
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message);
+        }
+    }
+)
