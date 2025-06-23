@@ -5,6 +5,7 @@ import MainPage from "../pages/MainPage/MainPage";
 import Admin from "./Admin/Admin";
 import Teacher from "./Teacher/Teacher";
 import Student from "./Student/Student";
+import AddTest from "./AddTest/AddTest";
 import { PrivateRoute } from "./PrivateRoute";
 import { RestrictedRoute } from "./RestrictedRoute";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,7 +41,7 @@ function App() {
       <Route
         path="/school_client/index"
         element={
-          <MainPage />
+          <PrivateRoute redirectTo="/school_client/login" component={<MainPage />} />
         }
       >
         <Route
@@ -54,6 +55,10 @@ function App() {
         <Route
           path="student"
           element={<Student/>}
+        />
+        <Route
+          path="addTest"
+          element={<AddTest/>}
         />
       </Route>
     </Routes>

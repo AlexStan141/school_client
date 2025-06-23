@@ -19,7 +19,7 @@ function MainPage() {
 
     useEffect(() => {
         if(!user.username){
-            navigate("/login")
+            navigate("/school_client/login")
         }
     }, [user])
 

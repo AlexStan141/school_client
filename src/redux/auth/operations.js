@@ -4,11 +4,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 axios.defaults.baseURL = "https://school-server-59er.onrender.com"
 
 const setAuthHeader = token => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 const clearAuthHeader = () => {
-  axios.defaults.headers.common.Authorization = ''; 
+    axios.defaults.headers.common.Authorization = '';
 }
 
 export const fetchUsers = createAsyncThunk("users/fetchAll",
@@ -33,12 +33,12 @@ export const getUser = createAsyncThunk("users/me",
     }
 )
 
-export const register = createAsyncThunk("user/register",
+export const register = createAsyncThunk("users/register",
     async (credentials, thunkAPI) => {
         try {
             const response = await axios.post("/user/register", credentials);
-            if(!response.data.data){
-                throw({"message": response.data.message}); //trimitem catre catch mesajul de eroare din backend
+            if (!response.data.data) {
+                throw ({ "message": response.data.message }); //trimitem catre catch mesajul de eroare din backend
             }
             setAuthHeader(response.data.data.token); //response.data contine raspunsul din backend
             return response.data;
@@ -48,13 +48,13 @@ export const register = createAsyncThunk("user/register",
     }
 )
 
-export const login = createAsyncThunk("user/login",
+export const login = createAsyncThunk("users/login",
     async ({ email, password }, thunkAPI) => {
         try {
-            const response = await axios.post("/user/login", { email, password }); 
-            if(!response.data.data){
-                throw({"message": response.data.message}); //trimitem catre catch mesajul de eroare din backend
-            }               
+            const response = await axios.post("/user/login", { email, password });
+            if (!response.data.data) {
+                throw ({ "message": response.data.message }); //trimitem catre catch mesajul de eroare din backend
+            }
             setAuthHeader(response.data.data.token); //response.data contine raspunsul din backend
             return response.data;
         } catch (e) {
@@ -63,32 +63,43 @@ export const login = createAsyncThunk("user/login",
     }
 )
 
-export const logout = createAsyncThunk("user/logout",
+export const logout = createAsyncThunk("users/logout",
     async (_, thunkAPI) => {
-        try{
+        try {
             const response = await axios.post("/user/logout");
             clearAuthHeader();
             return response.data;
-        } catch (e){
+        } catch (e) {
             return thunkAPI.rejectWithValue(e.message);
         }
     }
 )
 
-export const refreshUser = createAsyncThunk("user/refresh",
-    async(_, thunkAPI) => {
+export const refreshUser = createAsyncThunk("users/refresh",
+    async (_, thunkAPI) => {
         const state = thunkAPI.getState();
         const persistedToken = state.users.token;
 
-        if(persistedToken == null){
+        if (persistedToken == null) {
             return thunkAPI.rejectWithValue("Unable to fetch user");
         }
 
-        try{
+        try {
             setAuthHeader(persistedToken);
             const res = await axios.get("/user/me");
             return res.data.data;
-        } catch(e){
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message);
+        }
+    }
+)
+
+export const removeUser = createAsyncThunk("users/remove",
+    async (userId, thunkAPI) => {
+        try {
+            const res= await axios.delete(`/user/${userId}`);
+            return res.data.data;
+        } catch (e) {
             return thunkAPI.rejectWithValue(e.message);
         }
     }
