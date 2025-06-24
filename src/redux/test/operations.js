@@ -51,7 +51,29 @@ export const addTest = createAsyncThunk("tests/addTest",
 export const getTest = createAsyncThunk("tests/getTest",
     async(testId, thunkAPI) => {
         try{
-            const response = await axios.get(`/test/${testId}`);
+            const response = await axios.get(`/test/test/${testId}`);
+            return response.data.data;
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message);
+        }
+    }
+)
+
+export const editTest = createAsyncThunk("tests/editTest",
+    async({ testId, title, questions}, thunkAPI) => {
+        try{
+            const response = await axios.put(`/test/${testId}`, {title, questions});
+            return response.data.data;
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message);
+        }
+    }
+)
+
+export const deleteTest = createAsyncThunk("tests/deleteTest",
+    async(testId, thunkAPI) => {
+        try{
+            const response = await axios.delete(`/test/${testId}`);
             return response.data.data;
         } catch (e) {
             return thunkAPI.rejectWithValue(e.message);

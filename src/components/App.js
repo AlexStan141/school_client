@@ -7,6 +7,7 @@ import Teacher from "./Teacher/Teacher";
 import Student from "./Student/Student";
 import AddTest from "./AddTest/AddTest";
 import ViewTest from "./ViewTest/ViewTest";
+import EditTest from "./EditTest/EditTest";
 import { PrivateRoute } from "./PrivateRoute";
 import { RestrictedRoute } from "./RestrictedRoute";
 import { useDispatch, useSelector } from "react-redux";
@@ -64,6 +65,10 @@ function App() {
         <Route
           path="viewTest/:testId"
           element={<ViewTest/>}
+        />
+        <Route
+          path="editTest/:testId"
+          element={<EditTest/>}
         />
       </Route>
     </Routes>
