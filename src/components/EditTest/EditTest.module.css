@@ -1,0 +1,23 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+
+.fieldContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.field{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.questions{
+    width: 500px;
+}

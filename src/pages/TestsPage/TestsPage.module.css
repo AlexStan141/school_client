@@ -1,0 +1,13 @@
+.container{
+    border: 1px solid;
+    padding: 10px 20px;
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.create{
+    margin-top: 10px;
+}
