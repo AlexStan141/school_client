@@ -34,11 +34,11 @@ function Header() {
             {currentUser.username ? <span className={css.welcome}>Welcome, {currentUser.username}!</span>
                 : <span className={css.welcome}>Not connected!</span>}
             <span className={css.links}>
-                {!currentUser.username && <StyledLink to="/school_client" onClick={handlePageChange} end>Register</StyledLink>}
-                {!currentUser.username && <StyledLink to="/school_client/login" onClick={handlePageChange} >Login</StyledLink>}
-                {currentUser.role === 'admin' && <StyledLink to="/school_client/index/users">Users</StyledLink>}
-                {currentUser.username && <StyledLink to="/school_client/index/tests">Tests</StyledLink>}
-                {currentUser.role === 'teacher' && <StyledLink to="/school_client/index/add_test">Add test</StyledLink>}
+                {!currentUser.username && <StyledLink to="/" onClick={handlePageChange} end>Register</StyledLink>}
+                {!currentUser.username && <StyledLink to="/login" onClick={handlePageChange} >Login</StyledLink>}
+                {currentUser.role === 'admin' && <StyledLink to="/index/users">Users</StyledLink>}
+                {currentUser.username && <StyledLink to="/index/tests">Tests</StyledLink>}
+                {currentUser.role === 'teacher' && <StyledLink to="/index/add_test">Add test</StyledLink>}
             </span>
         </span>
         {currentUser.username && <button className={css.logout} onClick={() => {

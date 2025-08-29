@@ -4,14 +4,14 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import MainPage from "../pages/MainPage/MainPage";
 import { PrivateRoute } from "./PrivateRoute";
 import { RestrictedRoute } from "./RestrictedRoute";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useAuth } from "../hooks";
 import { useEffect } from "react";
 import { refreshUser } from "../redux/auth/operations";
 import UsersPage from "../pages/UsersPage/UsersPage";
 import TestsPage from "../pages/TestsPage/TestsPage";
-import AddTest from "./AddTest/AddTest";
-import EditTest from "./EditTest/EditTest"
+import AddTestPage from "../pages/AddTestPage/AddTestPage";
+import EditTestForm from "./EditTestForm/EditTestForm";
 
 function App() {
 
@@ -27,27 +27,27 @@ function App() {
   ) : (
     <Routes>
       <Route
-        path="/school_client"
+        path=""
         element={
-          <RestrictedRoute redirectTo="/school_client/index" component={<RegistrationPage />} />
+          <RestrictedRoute redirectTo="/index" component={<RegistrationPage />} />
         }
       />
       <Route
-        path="/school_client/login"
+        path="/login"
         element={
-          <RestrictedRoute redirectTo="/school_client/index" component={<LoginPage />} />
+          <RestrictedRoute redirectTo="/index" component={<LoginPage />} />
         }
       />
       <Route
-        path="/school_client/index"
+        path="/index"
         element={
-          <PrivateRoute redirectTo="/school_client/login" component={<MainPage />} />
+          <PrivateRoute redirectTo="/login" component={<MainPage />} />
         }
       >
         <Route path="users" element={<UsersPage></UsersPage>}></Route>
         <Route path="tests" element={<TestsPage></TestsPage>}></Route>
-        <Route path="add_test" element={<AddTest></AddTest>}></Route>
-        <Route path="edit_test/:testId" element={<EditTest></EditTest>}></Route>
+        <Route path="add_test" element={<AddTestPage></AddTestPage>}></Route>
+        <Route path="edit_test/:testId" element={<EditTestForm></EditTestForm>}></Route>
       </Route>
     </Routes>
   );

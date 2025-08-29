@@ -1,0 +1,27 @@
+.fieldContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.field{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.questions{
+    width: 500px;
+}
+
+.button{
+    font-size: 12px;
+    padding: 10px;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+}
+
+.danger{
+    background-color: red;
+}
