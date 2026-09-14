@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 
-axios.defaults.baseURL = "https://school-server-59er.onrender.com";
+axios.defaults.baseURL = "http://localhost:5000";
 
 export const fetchTests = createAsyncThunk("tests/fetchAll",
     async (_, thunkAPI) => {

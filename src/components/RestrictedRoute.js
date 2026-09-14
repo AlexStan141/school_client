@@ -9,7 +9,7 @@ export const RestrictedRoute = ({component: Component, redirectTo = "/"}) => {
     const role = user.role;
 
     let page;
-    if(role === 'admin'){
+    if(role === 'director'){
         page = 'users';
     } else {
         page = 'tests';

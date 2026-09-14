@@ -34,7 +34,6 @@ function RegistrationPage() {
     }
 
     return (<div>
-        <Header></Header>
         {error && <p className={css.error}>{error}</p>}
         <form onSubmit={handleSubmit} className={css.form}>
             <div className={css.formElement}>

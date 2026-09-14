@@ -41,7 +41,7 @@ const usersSlice = createSlice({
                 state.items = action.payload.data;
             })
             .addCase(register.fulfilled, (state, action) => {
-                state.currentUser = action.payload.data.user
+                //state.currentUser = action.payload.data.user
                 state.token = action.payload.data.token;
                 state.isLoggedIn = true;
             })

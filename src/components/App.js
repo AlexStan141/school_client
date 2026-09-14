@@ -27,12 +27,6 @@ function App() {
   ) : (
     <Routes>
       <Route
-        path=""
-        element={
-          <RestrictedRoute redirectTo="/index" component={<RegistrationPage />} />
-        }
-      />
-      <Route
         path="/login"
         element={
           <RestrictedRoute redirectTo="/index" component={<LoginPage />} />
@@ -44,6 +38,7 @@ function App() {
           <PrivateRoute redirectTo="/login" component={<MainPage />} />
         }
       >
+        <Route path="add_user" element={<RegistrationPage></RegistrationPage>}></Route>
         <Route path="users" element={<UsersPage></UsersPage>}></Route>
         <Route path="tests" element={<TestsPage></TestsPage>}></Route>
         <Route path="add_test" element={<AddTestPage></AddTestPage>}></Route>
