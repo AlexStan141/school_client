@@ -22,3 +22,13 @@
 	padding: 5px;
 	width: 300px;
 }
+
+.success {
+	font-size: 1rem;
+	font-family: "Roboto","Helvetica","Arial",sans-serif;
+	margin-left: 50px;
+	background-color: green;
+	color: white;
+	padding: 5px;
+	width: 300px;
+}

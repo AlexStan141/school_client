@@ -16,6 +16,7 @@ const usersSlice = createSlice({
         items: [],
         isLoading: false,
         error: null,
+        success: null,
         currentUser: {username: null, email: null, role: null},
         token: null,
         isLoggedIn: false,
@@ -44,6 +45,8 @@ const usersSlice = createSlice({
                 //state.currentUser = action.payload.data.user
                 state.token = action.payload.data.token;
                 state.isLoggedIn = true;
+                state.error = null;
+                state.success = "User registered successfully!"
             })
             .addCase(login.fulfilled, (state, action) => {
                 state.currentUser = action.payload.data.user;

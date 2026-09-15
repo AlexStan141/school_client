@@ -8,7 +8,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
 import { register } from "../../redux/auth/operations";
 import Radio from "@mui/material/Radio";
-import { getUsersError } from "../../redux/auth/selectors";
+import { getUsersError, getUsersSuccess } from "../../redux/auth/selectors";
 import Header from "../../components/Header/Header";
 
 
@@ -19,6 +19,7 @@ function RegistrationPage() {
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("");
     const error = useSelector(getUsersError);
+    const success = useSelector(getUsersSuccess);
 
     const dispatch = useDispatch()
 
@@ -35,6 +36,7 @@ function RegistrationPage() {
 
     return (<div>
         {error && <p className={css.error}>{error}</p>}
+        {success && <p className={css.success}>{success}</p>}
         <form onSubmit={handleSubmit} className={css.form}>
             <div className={css.formElement}>
                 <FormLabel id="username" className={css.label}>Username</FormLabel>

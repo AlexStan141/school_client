@@ -35,12 +35,17 @@ function TestList() {
                     <button onClick={() => {
                         //Do nothing
                     }}>Start</button>
-                    <button onClick={() => {
-                        navigate(`/index/edit_test/${test._id}`);
-                    }}>Edit</button>
-                    <button onClick={() => {
-                        dispatch(deleteTest(test._id));
-                    }}>Delete</button>
+
+                    {user.role == 'teacher' && 
+                        <button onClick={() => {
+                            navigate(`/index/edit_test/${test._id}`);
+                        }}>Edit</button>
+                    }
+                    {user.role == 'teacher' && 
+                        <button onClick={() => {
+                            dispatch(deleteTest(test._id));
+                        }}>Delete</button>
+                    }
                 </div>
             </div>
         })}

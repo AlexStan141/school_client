@@ -4,6 +4,8 @@ export const getUsersLoading = state => state.users.isLoading;
 
 export const getUsersError = state => state.users.error;
 
+export const getUsersSuccess = state => state.users.success;
+
 export const getCurrentUser = state => state.users.currentUser;
 
 export const getToken = state => state.users.token;
