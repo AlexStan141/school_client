@@ -41,6 +41,9 @@ export const addTest = createAsyncThunk("tests/addTest",
     async({title, questions}, thunkAPI) => {
         try{
             const response = await axios.post(`/test`, {title, questions});
+            if (response.data.message) {
+                throw ({ "message": response.data.message });
+            }
             return response.data.data;
         } catch (e) {
             return thunkAPI.rejectWithValue(e.message);

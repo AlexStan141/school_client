@@ -1,6 +1,6 @@
 import css from "./TestForm.module.css";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTest } from "../../redux/test/operations";
 import { useNavigate } from "react-router-dom";
 
@@ -17,13 +17,12 @@ const idsArray = (nrQuestions) => {
     return ids;
 }
 
-function TestForm() {
+function TestForm({onSubmit}) {
 
     const [title, setTitle] = useState("");
     const [questions, setQuestions] = useState([]);
     const [nrQuestions, setNrQuestions] = useState(0);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const addQuestion = () => {
         setNrQuestions(nrQuestions + 1);
@@ -48,10 +47,15 @@ function TestForm() {
         setNrQuestions(nrQuestions - 1)
     }
 
-    const submitTest = (e) => {
+    const submitTest = async (e) => {
         e.preventDefault();
-        dispatch(addTest({ title, questions }));
-        navigate('/index/tests');
+        try{
+            await dispatch(addTest({ title, questions })).unwrap();
+            onSubmit(null);
+        }
+        catch(error){
+            onSubmit(error)
+        }
     }
 
     return <form className={css.form} onSubmit={submitTest}>
