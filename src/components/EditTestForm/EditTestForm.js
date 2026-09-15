@@ -2,7 +2,7 @@ import css from "./EditTestForm.module.css";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { selectDisplayedTest } from "../../redux/test/selectors";
+import { selectDisplayedTest, selectTestLoaded } from "../../redux/test/selectors";
 import { editTest, getTest } from "../../redux/test/operations";
 
 const labelFromId = (id) => {
@@ -27,6 +27,7 @@ function EditTestForm() {
     const [title, setTitle] = useState("");
     const [questions, setQuestions] = useState([]);
     const [nrQuestions, setNrQuestions] = useState(0);
+    const loaded = useSelector(selectTestLoaded);
 
     useEffect(() => {
         setTitle(displayedTest.title ? displayedTest.title : "");
@@ -64,8 +65,23 @@ function EditTestForm() {
     }
 
     useEffect(() => {
-        dispatch(getTest(testId))
+
+        const loadData = async () => {
+            try{
+                await dispatch(getTest(testId)).unwrap();
+            }
+            catch(e){
+                console.log(e);
+            }
+        }
+
+        loadData();
+
     }, [dispatch])
+
+    if(!loaded){
+        return <div>Test data is loading! Please wait!</div>
+    }
 
     return <form className={css.form} onSubmit={submitTest}>
 

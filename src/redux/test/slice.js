@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchTests, fetchTeacherTests, getTest, addTest, deleteTest } from "./operations";
 
 const handlePending = state => {
-    state.isLoading = true;
+    state.loaded = false;
 }
 
 const handleRejected = (state, action) => {
-    state.isLoading = false;
+    state.loaded = false;
     state.error = action.payload;
 }
 
@@ -14,7 +14,7 @@ const testsSlice = createSlice({
     name: "tests",
     initialState: {
         items: [],
-        isLoading: false,
+        loaded: false,
         error: null,
         displayedTest: {},
         filter: ""
@@ -34,27 +34,27 @@ const testsSlice = createSlice({
         .addCase(fetchTests.fulfilled, (state, action) => {
             state.items = action.payload;
             state.error = null;
-            state.isLoading = false;
+            state.loaded = true;
         })
         .addCase(fetchTeacherTests.fulfilled, (state, action) => {
             state.items = action.payload;
             state.error = null;
-            state.isLoading = false;
+            state.loaded = true;
         })
         .addCase(getTest.fulfilled, (state, action) => {
             state.displayedTest = action.payload;
             state.error = null;
-            state.isLoading = false;
+            state.loaded = true;
         })
         .addCase(addTest.fulfilled, (state, action) => {
             state.items.push(action.payload);
             state.error = null;
-            state.isLoading = false;
+            state.loaded = true;
         })
         .addCase(deleteTest.fulfilled, (state, action) => {
             state.items = state.items.filter(item => item._id !== action.payload._id);
             state.error = null;
-            state.isLoading = false;
+            state.loaded = true;
         })
     }
 })

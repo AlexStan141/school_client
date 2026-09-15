@@ -10,7 +10,7 @@ const StyledLink = styled(NavLink)`
     color: white;
     text-decoration: none;
     font-weight: 700;
-    padding: 10px 5px;
+    padding: 10px 10px;
     position: relative;
 
     &.active{
@@ -37,7 +37,9 @@ function Header() {
                 {currentUser.role === 'director' && <StyledLink to="/index/add_user" onClick={handlePageChange} end>Register User</StyledLink>}
                 {!currentUser.username && <StyledLink to="/login" onClick={handlePageChange} >Login</StyledLink>}
                 {currentUser.role === 'director' && <StyledLink to="/index/users">Users</StyledLink>}
-                {currentUser.role === 'student' && <StyledLink to="/index/tests">Tests</StyledLink>}
+                {(currentUser.role === 'student' || currentUser.role === 'teacher') && 
+                    <StyledLink to="/index/tests">Tests</StyledLink>
+                }
                 {currentUser.role === 'teacher' && <StyledLink to="/index/add_test">Add test</StyledLink>}
             </span>
         </span>
