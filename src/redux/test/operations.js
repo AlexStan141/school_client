@@ -26,17 +26,6 @@ export const fetchTeacherTests = createAsyncThunk("tests/fetchTeacherTests",
     }
 )
 
-export const removeTest = createAsyncThunk("tests/removeTest",
-    async (testId, thunkAPI) => {
-        try {
-            const response = await axios.delete(`/test/${testId}`);
-            return response.data.data;
-        } catch (e) {
-            return thunkAPI.rejectWithValue(e.message);
-        }
-    }
-)
-
 export const addTest = createAsyncThunk("tests/addTest", 
     async({title, questions}, thunkAPI) => {
         try{
@@ -66,6 +55,9 @@ export const editTest = createAsyncThunk("tests/editTest",
     async({ testId, title, questions}, thunkAPI) => {
         try{
             const response = await axios.put(`/test/${testId}`, {title, questions});
+            if (response.data.message) {
+                throw ({ "message": response.data.message });
+            }
             return response.data.data;
         } catch (e) {
             return thunkAPI.rejectWithValue(e.message);
@@ -79,6 +71,16 @@ export const deleteTest = createAsyncThunk("tests/deleteTest",
             const response = await axios.delete(`/test/${testId}`);
             return response.data.data;
         } catch (e) {
+            return thunkAPI.rejectWithValue(e.message);
+        }
+    }
+)
+
+export const processChange = createAsyncThunk("users/processChange", 
+    async (_, thunkAPI) => {
+        try{
+            return null;
+        } catch(e){
             return thunkAPI.rejectWithValue(e.message);
         }
     }

@@ -2,9 +2,9 @@ import Header from "../../components/Header/Header";
 import TextField from '@mui/material/TextField';
 import FormLabel from '@mui/material/FormLabel';
 import css from "./LoginPage.module.css"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../redux/auth/operations';
+import { login, processChange } from '../../redux/auth/operations';
 import { getUsersError } from '../../redux/auth/selectors';
 import Button from '@mui/material/Button';
 
@@ -23,6 +23,17 @@ function LoginPage() {
         dispatch(login({ email, password }))
         form.reset()
     }
+
+    useEffect(() => {
+
+        const change = async () => {
+            await(dispatch(processChange()));
+        }
+
+        change();
+
+        
+    }, [dispatch, email, password]);
 
     return (<div>
         <Header></Header>

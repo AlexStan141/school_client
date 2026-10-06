@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import TestForm from "../../components/TestForm/TestForm";
 import { selectTestError } from "../../redux/test/selectors";
 import { useNavigate } from "react-router-dom";
+import css from "./AddTestPage.module.css";
 
 function AddTestPage() {
 
@@ -15,7 +16,7 @@ function AddTestPage() {
     }
 
     return <>
-        {error && <p>{error}</p>}
+        {error && <p className={css.error}>{error}</p>}
         <h3>Add test</h3>
         <TestForm onSubmit={submit}></TestForm>
     </>

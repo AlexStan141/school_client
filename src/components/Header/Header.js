@@ -2,7 +2,7 @@ import { styled } from "@mui/material/styles";
 import css from "./Header.module.css";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { pageChange } from "../../redux/auth/operations";
+import { processChange } from "../../redux/auth/operations";
 import { getCurrentUser } from "../../redux/auth/selectors";
 import { logout } from "../../redux/auth/operations";
 
@@ -23,19 +23,13 @@ function Header() {
     const dispatch = useDispatch();
     const currentUser = useSelector(getCurrentUser);
 
-    const handlePageChange = () => {
-
-        dispatch(pageChange())
-        //Daca apare o eroare la register si ne mutam pe login eroarea trebuie sa dispara si invers
-    }
-
     return <div className={css.header}>
         <span>
             {currentUser.username ? <span className={css.welcome}>Welcome, {currentUser.username}!</span>
                 : <span className={css.welcome}>Not connected!</span>}
             <span className={css.links}>
-                {currentUser.role === 'director' && <StyledLink to="/index/add_user" onClick={handlePageChange} end>Register User</StyledLink>}
-                {!currentUser.username && <StyledLink to="/login" onClick={handlePageChange} >Login</StyledLink>}
+                {currentUser.role === 'director' && <StyledLink to="/index/add_user" end>Register User</StyledLink>}
+                {!currentUser.username && <StyledLink to="/">Login</StyledLink>}
                 {currentUser.role === 'director' && <StyledLink to="/index/users">Users</StyledLink>}
                 {(currentUser.role === 'student' || currentUser.role === 'teacher') && 
                     <StyledLink to="/index/tests">Tests</StyledLink>

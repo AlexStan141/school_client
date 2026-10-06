@@ -1,0 +1,17 @@
+.error {
+	font-size: 1rem;
+	font-family: "Roboto","Helvetica","Arial",sans-serif;
+	background-color: red;
+	color: white;
+	padding: 5px;
+	width: 300px;
+}
+
+.success {
+	font-size: 1rem;
+	font-family: "Roboto","Helvetica","Arial",sans-serif;
+	background-color: green;
+	color: white;
+	padding: 5px;
+	width: 300px;
+}

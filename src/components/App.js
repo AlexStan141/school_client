@@ -11,7 +11,7 @@ import { refreshUser } from "../redux/auth/operations";
 import UsersPage from "../pages/UsersPage/UsersPage";
 import TestsPage from "../pages/TestsPage/TestsPage";
 import AddTestPage from "../pages/AddTestPage/AddTestPage";
-import EditTestForm from "./EditTestForm/EditTestForm";
+import EditTestPage from "../pages/EditTestPage/EditTestPage";
 
 function App() {
 
@@ -27,7 +27,7 @@ function App() {
   ) : (
     <Routes>
       <Route
-        path="/login"
+        path="/"
         element={
           <RestrictedRoute redirectTo="/index" component={<LoginPage />} />
         }
@@ -35,14 +35,14 @@ function App() {
       <Route
         path="/index"
         element={
-          <PrivateRoute redirectTo="/login" component={<MainPage />} />
+          <PrivateRoute redirectTo="/" component={<MainPage />} />
         }
       >
         <Route path="add_user" element={<RegistrationPage></RegistrationPage>}></Route>
         <Route path="users" element={<UsersPage></UsersPage>}></Route>
         <Route path="tests" element={<TestsPage></TestsPage>}></Route>
         <Route path="add_test" element={<AddTestPage></AddTestPage>}></Route>
-        <Route path="edit_test/:testId" element={<EditTestForm></EditTestForm>}></Route>
+        <Route path="edit_test/:testId" element={<EditTestPage></EditTestPage>}></Route>
       </Route>
     </Routes>
   );

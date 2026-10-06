@@ -87,6 +87,7 @@ export const refreshUser = createAsyncThunk("users/refresh",
         try {
             setAuthHeader(persistedToken);
             const res = await axios.get("/user/me");
+            console.log("Operation fulfilled");
             return res.data.data;
         } catch (e) {
             return thunkAPI.rejectWithValue(e.message);
@@ -105,7 +106,7 @@ export const removeUser = createAsyncThunk("users/remove",
     }
 )
 
-export const pageChange = createAsyncThunk("users/pageChange", 
+export const processChange = createAsyncThunk("users/processChange", 
     async (_, thunkAPI) => {
         try{
             return null;

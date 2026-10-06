@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchUsers, register, login, logout, refreshUser, getUser, pageChange } from "./operations";
+import { fetchUsers, register, login, logout, refreshUser, getUser, processChange } from "./operations";
 
 const handlePending = state => {
     state.isLoading = true;
@@ -34,8 +34,8 @@ const usersSlice = createSlice({
             .addCase(login.rejected, handleRejected)
             .addCase(logout.pending, handlePending)
             .addCase(logout.rejected, handleRejected)
-            .addCase(pageChange.pending, handlePending)
-            .addCase(pageChange.rejected, handleRejected)
+            .addCase(processChange.pending, handlePending)
+            .addCase(processChange.rejected, handleRejected)
             .addCase(fetchUsers.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
@@ -52,6 +52,7 @@ const usersSlice = createSlice({
                 state.currentUser = action.payload.data.user;
                 state.token = action.payload.data.token;
                 state.isLoggedIn = true;
+                state.error = null;
             })
             .addCase(logout.fulfilled, (state, action) => {
                 state.currentUser = {name: null, email: null, role: null};
@@ -65,6 +66,7 @@ const usersSlice = createSlice({
                 state.currentUser = action.payload;
                 state.isLoggedIn = true;
                 state.isRefreshing = false;
+                console.log("isLoggedIn true");
             })
             .addCase(refreshUser.rejected, state => {
                 state.isRefreshing = false;
@@ -72,7 +74,7 @@ const usersSlice = createSlice({
             .addCase(getUser.fulfilled, (state, action) => {
                 state.currentUser = action.payload;
             })
-            .addCase(pageChange.fulfilled, state => {
+            .addCase(processChange.fulfilled, state => {
                 state.error = null;
             })
     }

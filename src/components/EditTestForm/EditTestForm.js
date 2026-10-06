@@ -2,8 +2,8 @@ import css from "./EditTestForm.module.css";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { selectDisplayedTest, selectTestLoaded } from "../../redux/test/selectors";
-import { editTest, getTest } from "../../redux/test/operations";
+import { selectTestLoaded } from "../../redux/test/selectors";
+import { editTest, getTest, processChange } from "../../redux/test/operations";
 
 const labelFromId = (id) => {
     const questionNr = id.replace("question", "")
@@ -18,22 +18,15 @@ const idsArray = (nrQuestions) => {
     return ids;
 }
 
-function EditTestForm() {
+function EditTestForm({onSubmit}) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { testId } = useParams();
-    const displayedTest = useSelector(selectDisplayedTest);
     const [title, setTitle] = useState("");
     const [questions, setQuestions] = useState([]);
     const [nrQuestions, setNrQuestions] = useState(0);
     const loaded = useSelector(selectTestLoaded);
-
-    useEffect(() => {
-        setTitle(displayedTest.title ? displayedTest.title : "");
-        setQuestions(displayedTest.questions ? displayedTest.questions : []);
-        setNrQuestions(displayedTest.questions ? displayedTest.questions.length : 0);
-    }, [displayedTest])
 
     const addQuestion = () => {
         setNrQuestions(nrQuestions + 1);
@@ -53,10 +46,15 @@ function EditTestForm() {
         }))
     }
 
-    const submitTest = (e) => {
+    const submitTest = async (e) => {
         e.preventDefault();
-        dispatch(editTest({ testId, title, questions }));
-        navigate("/index/tests");
+        try{
+            await dispatch(processChange()).unwrap();
+            await dispatch(editTest({ testId, title, questions })).unwrap();
+            navigate("/index/tests");
+        } catch(error){
+            console.log(error);
+        }
     }
 
     const deleteQuestion = (deletedQuestion) => {
@@ -68,7 +66,10 @@ function EditTestForm() {
 
         const loadData = async () => {
             try{
-                await dispatch(getTest(testId)).unwrap();
+                const test = await dispatch(getTest(testId)).unwrap();
+                setTitle(test.title);
+                setQuestions(test.questions);
+                setNrQuestions(test.questions.length);
             }
             catch(e){
                 console.log(e);
