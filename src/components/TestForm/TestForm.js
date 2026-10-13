@@ -1,8 +1,8 @@
 import css from "./TestForm.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTest } from "../../redux/test/operations";
-import { useNavigate } from "react-router-dom";
+import { processChange } from "../../redux/test/operations";
 
 const labelFromId = (id) => {
     const questionNr = id.replace("question", "")
@@ -58,16 +58,30 @@ function TestForm({onSubmit}) {
         }
     }
 
+    useEffect(() => {
+    
+        const loadData = async () => {
+            try{
+                const processTest = await dispatch(processChange()).unwrap();
+            }
+            catch(e){
+                console.log(e);
+            }
+        }
+
+        loadData();
+    }, [dispatch])
+
     return <form className={css.form} onSubmit={submitTest}>
         <div className={css.fieldContainer}>
             <label for="title">Title</label>
-            <input id="title" type="text" name="title" value={title} onChange={e => { setTitle(e.target.value) }}></input>
+            <input id="title" type="text" name="title" value={title} onChange={e => { setTitle(e.target.value) }} className={css.input}></input>
         </div>
 
         {idsArray(nrQuestions).map((id, idx) => <div className={css.fieldContainer}>
             <label for={id}>{labelFromId(id)}</label>
             <div className={css.field}>
-                <textarea id={id} name={id} value={questions[idx]} onChange={editQuestion} rows={3} className={css.questions}></textarea>
+                <textarea id={id} name={id} value={questions[idx]} onChange={editQuestion} rows={3} className={css.textarea}></textarea>
                 <button type="button" onClick={() => { deleteQuestion(questions[idx]) }} className={css.button + " " + css.danger}>Delete question</button>
             </div>
         </div>)}

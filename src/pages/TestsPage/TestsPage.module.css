@@ -16,3 +16,21 @@
     display: flex;
     gap: 10px;
 }
+
+.error {
+	font-size: 1rem;
+	font-family: "Roboto","Helvetica","Arial",sans-serif;
+	background-color: red;
+	color: white;
+	padding: 5px;
+	width: 500px;
+}
+
+.success {
+	font-size: 1rem;
+	font-family: "Roboto","Helvetica","Arial",sans-serif;
+	background-color: green;
+	color: white;
+	padding: 5px;
+	width: 500px;
+}

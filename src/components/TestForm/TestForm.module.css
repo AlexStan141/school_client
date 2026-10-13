@@ -18,6 +18,11 @@
     align-items: center;
 }
 
-.questions{
+.input{
     width: 500px;
+}
+
+.textarea{
+    width: 500px;
+    height: 100px;
 }

@@ -62,7 +62,7 @@ const testsSlice = createSlice({
         .addCase(editTest.fulfilled, (state, action) => {
             state.error = null;
             state.loaded = true;
-            state.success = "Test added successfully!"
+            state.success = "Test edited successfully!"
         })
         .addCase(deleteTest.fulfilled, (state, action) => {
             state.items = state.items.filter(item => item._id !== action.payload._id);
@@ -73,6 +73,7 @@ const testsSlice = createSlice({
         .addCase(processChange.fulfilled, state => {
             state.loaded = true;
             state.error = null;
+            state.success = null;
         })
     }
 })

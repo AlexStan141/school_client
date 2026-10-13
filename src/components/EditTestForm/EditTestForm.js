@@ -66,6 +66,8 @@ function EditTestForm({onSubmit}) {
 
         const loadData = async () => {
             try{
+                const processTest = await dispatch(processChange()).unwrap(); //Daca am de ex. un flash message pe pagina de teste
+                                                                            //dupa intrare pe edit test vreau sa dispara
                 const test = await dispatch(getTest(testId)).unwrap();
                 setTitle(test.title);
                 setQuestions(test.questions);
@@ -88,13 +90,13 @@ function EditTestForm({onSubmit}) {
 
         <div className={css.fieldContainer}>
             <label for="title">Title</label>
-            <input id="title" type="text" name="title" value={title} onChange={e => { setTitle(e.target.value) }}></input>
+            <input id="title" type="text" name="title" value={title} onChange={e => { setTitle(e.target.value) }} className={css.input}></input>
         </div>
 
         {idsArray(nrQuestions).map((id, idx) => <div className={css.fieldContainer}>
             <label for={id}>{labelFromId(id)}</label>
             <div className={css.field}>
-                <textarea id={id} name={id} value={questions[idx]} onChange={editQuestion} rows={3}></textarea>
+                <textarea id={id} name={id} value={questions[idx]} onChange={editQuestion} rows={3} className={css.textarea}></textarea>
                 <button type="button" onClick={() => { deleteQuestion(questions[idx]) }} className={css.button + " " + css.danger}>Delete question</button>
             </div>
         </div>)}

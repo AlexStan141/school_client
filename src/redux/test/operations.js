@@ -76,7 +76,7 @@ export const deleteTest = createAsyncThunk("tests/deleteTest",
     }
 )
 
-export const processChange = createAsyncThunk("users/processChange", 
+export const processChange = createAsyncThunk("tests/processChange", 
     async (_, thunkAPI) => {
         try{
             return null;
@@ -85,3 +85,5 @@ export const processChange = createAsyncThunk("users/processChange",
         }
     }
 )
+
+

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import css from "./RegistrationPage.module.css"
 import TextField from '@mui/material/TextField';
@@ -6,10 +6,10 @@ import FormLabel from '@mui/material/FormLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
-import { register } from "../../redux/auth/operations";
+import { register, processChange } from "../../redux/auth/operations";
 import Radio from "@mui/material/Radio";
-import { getUsersError, getUsersSuccess } from "../../redux/auth/selectors";
-import Header from "../../components/Header/Header";
+import { getUsersError } from "../../redux/auth/selectors";
+import { useNavigate } from "react-router-dom";
 
 
 function RegistrationPage() {
@@ -17,26 +17,28 @@ function RegistrationPage() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [role, setRole] = useState("");
+    const [role, setRole] = useState("student");
     const error = useSelector(getUsersError);
-    const success = useSelector(getUsersSuccess);
+    const navigate = useNavigate();
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        const form = event.target;
-        const username = event.target.elements.username.value;
-        const email = event.target.elements.email.value;
-        const password = event.target.elements.password.value;
-        const role = event.target.elements.role.value;
-        dispatch(register({ username, email, password, role }));
-        form.reset()
+    useEffect(() => {
+       dispatch(processChange());
+    }, [dispatch])
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try{
+            await dispatch(register({ username, email, password, role })).unwrap();
+            navigate("/index/users");
+        } catch(e){
+            console.log(e);
+        }
     }
 
     return (<div>
         {error && <p className={css.error}>{error}</p>}
-        {success && <p className={css.success}>{success}</p>}
         <form onSubmit={handleSubmit} className={css.form}>
             <div className={css.formElement}>
                 <FormLabel id="username" className={css.label}>Username</FormLabel>

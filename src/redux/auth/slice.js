@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchUsers, register, login, logout, refreshUser, getUser, processChange } from "./operations";
+import { fetchUsers, register, login, logout, refreshUser, getUser, processChange, removeUser } from "./operations";
 
 const handlePending = state => {
     state.isLoading = true;
@@ -36,6 +36,8 @@ const usersSlice = createSlice({
             .addCase(logout.rejected, handleRejected)
             .addCase(processChange.pending, handlePending)
             .addCase(processChange.rejected, handleRejected)
+            .addCase(removeUser.pending, handlePending)
+            .addCase(removeUser.rejected, handleRejected)
             .addCase(fetchUsers.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
@@ -43,7 +45,7 @@ const usersSlice = createSlice({
             })
             .addCase(register.fulfilled, (state, action) => {
                 //state.currentUser = action.payload.data.user
-                state.token = action.payload.data.token;
+                //state.token = action.payload.data.token;
                 state.isLoggedIn = true;
                 state.error = null;
                 state.success = "User registered successfully!"
@@ -76,6 +78,11 @@ const usersSlice = createSlice({
             })
             .addCase(processChange.fulfilled, state => {
                 state.error = null;
+                state.success = null;
+            })
+            .addCase(removeUser.fulfilled, state => {
+                state.error = null;
+                state.success = "User deleted successfully!"
             })
     }
 });
