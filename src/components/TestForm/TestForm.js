@@ -21,11 +21,9 @@ function TestForm({onSubmit}) {
 
     const [title, setTitle] = useState("");
     const [questions, setQuestions] = useState([]);
-    const [nrQuestions, setNrQuestions] = useState(0);
     const dispatch = useDispatch();
 
     const addQuestion = () => {
-        setNrQuestions(nrQuestions + 1);
         setQuestions([...questions, ""]);
     }
 
@@ -44,7 +42,6 @@ function TestForm({onSubmit}) {
 
     const deleteQuestion = (deletedQuestion) => {
         setQuestions(questions.filter(currentQuestion => currentQuestion !== deletedQuestion))
-        setNrQuestions(nrQuestions - 1)
     }
 
     const submitTest = async (e) => {
@@ -78,7 +75,7 @@ function TestForm({onSubmit}) {
             <input id="title" type="text" name="title" value={title} onChange={e => { setTitle(e.target.value) }} className={css.input}></input>
         </div>
 
-        {idsArray(nrQuestions).map((id, idx) => <div className={css.fieldContainer}>
+        {idsArray(questions.length).map((id, idx) => <div className={css.fieldContainer}>
             <label for={id}>{labelFromId(id)}</label>
             <div className={css.field}>
                 <textarea id={id} name={id} value={questions[idx]} onChange={editQuestion} rows={3} className={css.textarea}></textarea>
