@@ -7,13 +7,12 @@ import css from "./UsersPage.module.css";
 
 function UsersPage(){
 
-    const users = useSelector(getUsers);
     const dispatch = useDispatch();
     const success = useSelector(getUsersSuccess);
 
     useEffect(() => {
         dispatch(fetchUsers());
-    }, [users])
+    }, [dispatch])
 
     return <div>
         {success && <p className={css.success}>{success}</p>}

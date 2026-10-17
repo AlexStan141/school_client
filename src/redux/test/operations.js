@@ -18,7 +18,7 @@ export const fetchTests = createAsyncThunk("tests/fetchAll",
 export const fetchTeacherTests = createAsyncThunk("tests/fetchTeacherTests",
     async (userId, thunkAPI) => {
         try {
-            const response = await axios.get(`/test/${userId}`);
+            const response = await axios.get(`/test/owner/${userId}`);
             return response.data.data;
         } catch (e) {
             return thunkAPI.rejectWithValue(e.message);

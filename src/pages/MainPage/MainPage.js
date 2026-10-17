@@ -14,7 +14,15 @@ function MainPage() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getUser());
+        const loadUser = async () => {
+            try{
+                await dispatch(getUser()).unwrap();
+            } catch(e){
+                console.log(e);
+            }
+        }
+
+        loadUser();
     }, [dispatch])
 
     useEffect(() => {

@@ -15,28 +15,8 @@ function TestList() {
     const navigate = useNavigate();
     const tests = useSelector(selectAllTests);
     const loaded = useSelector(selectTestLoaded);
-    const filter = useSelector(selectValue);
+    const filter = useSelector(selectValue); 
     const dispatch = useDispatch();
-
-    useEffect(() => {
-
-        const loadData = async () => {
-
-            try{
-                if (user.role === "teacher") {
-                    await dispatch(fetchTeacherTests(user._id)).unwrap();
-                } else {
-                    await dispatch(fetchTests()).unwrap();
-                }
-            } catch(e){
-                console.log(e);
-            }
-            
-        }
-
-        loadData();
-        
-    }, [user])
 
     if(!loaded){
         return <div>Test data is loading! Please wait!</div>
@@ -67,6 +47,8 @@ function TestList() {
             </div>
         })}
     </>
+
+    return <></>
 }
 
 export default TestList;

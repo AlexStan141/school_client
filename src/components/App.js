@@ -12,6 +12,7 @@ import UsersPage from "../pages/UsersPage/UsersPage";
 import TestsPage from "../pages/TestsPage/TestsPage";
 import AddTestPage from "../pages/AddTestPage/AddTestPage";
 import EditTestPage from "../pages/EditTestPage/EditTestPage";
+import { RoleRoute } from "./RoleRoute";
 
 function App() {
 
@@ -38,11 +39,36 @@ function App() {
           <PrivateRoute redirectTo="/" component={<MainPage />} />
         }
       >
-        <Route path="add_user" element={<RegistrationPage></RegistrationPage>}></Route>
-        <Route path="users" element={<UsersPage></UsersPage>}></Route>
-        <Route path="tests" element={<TestsPage></TestsPage>}></Route>
-        <Route path="add_test" element={<AddTestPage></AddTestPage>}></Route>
-        <Route path="edit_test/:testId" element={<EditTestPage></EditTestPage>}></Route>
+        <Route 
+          path="add_user" 
+          element={
+            <RoleRoute component={<RegistrationPage/>} role="director"/>
+          }
+        ></Route>
+        <Route 
+          path="users" 
+          element={
+            <RoleRoute component={<UsersPage/>} role="director"/>
+          }
+        ></Route>
+        <Route 
+          path="tests" 
+          element={
+            <RoleRoute component={<TestsPage/>} role="teacher" secondRole="student"/>
+          }
+        ></Route>
+        <Route 
+          path="add_test" 
+          element={
+            <RoleRoute component={<AddTestPage/>} role="teacher"/>
+          }
+        ></Route>
+        <Route 
+          path="edit_test/:testId" 
+          element={
+            <RoleRoute component={<EditTestPage/>} role="teacher"/>
+          }
+        ></Route>
       </Route>
     </Routes>
   );

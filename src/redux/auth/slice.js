@@ -20,7 +20,7 @@ const usersSlice = createSlice({
         currentUser: {username: null, email: null, role: null},
         token: null,
         isLoggedIn: false,
-        isRefreshing: false
+        isRefreshing: true
     },
     extraReducers: builder => {
         builder
@@ -44,8 +44,6 @@ const usersSlice = createSlice({
                 state.items = action.payload.data;
             })
             .addCase(register.fulfilled, (state, action) => {
-                //state.currentUser = action.payload.data.user
-                //state.token = action.payload.data.token;
                 state.isLoggedIn = true;
                 state.error = null;
                 state.success = "User registered successfully!"
@@ -68,21 +66,22 @@ const usersSlice = createSlice({
                 state.currentUser = action.payload;
                 state.isLoggedIn = true;
                 state.isRefreshing = false;
-                console.log("isLoggedIn true");
             })
             .addCase(refreshUser.rejected, state => {
                 state.isRefreshing = false;
             })
             .addCase(getUser.fulfilled, (state, action) => {
                 state.currentUser = action.payload;
+                state.isLoggedIn = true;
             })
             .addCase(processChange.fulfilled, state => {
                 state.error = null;
                 state.success = null;
             })
-            .addCase(removeUser.fulfilled, state => {
+            .addCase(removeUser.fulfilled, (state, action) => {
                 state.error = null;
-                state.success = "User deleted successfully!"
+                state.success = 'User deleted successfully!';
+                state.items = state.items.filter(item => item._id !== action.payload._id);
             })
     }
 });
