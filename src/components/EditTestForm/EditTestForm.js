@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectTestLoaded } from "../../redux/test/selectors";
 import { editTest, getTest, processChange } from "../../redux/test/operations";
+import { getCurrentUser } from "../../redux/auth/selectors";
 
 const labelFromId = (id) => {
     const questionNr = id.replace("question", "")
@@ -25,11 +26,12 @@ function EditTestForm({onSubmit}) {
     const { testId } = useParams();
     const [title, setTitle] = useState("");
     const [questions, setQuestions] = useState([]);
-    const [nrQuestions, setNrQuestions] = useState(0);
     const loaded = useSelector(selectTestLoaded);
+    const currentUser = useSelector(getCurrentUser);
+
+    console.log(currentUser);
 
     const addQuestion = () => {
-        setNrQuestions(nrQuestions + 1);
         setQuestions([...questions, ""]);
     }
 
@@ -59,7 +61,6 @@ function EditTestForm({onSubmit}) {
 
     const deleteQuestion = (deletedQuestion) => {
         setQuestions(questions.filter(currentQuestion => currentQuestion !== deletedQuestion))
-        setNrQuestions(nrQuestions - 1)
     }
 
     useEffect(() => {
@@ -71,7 +72,6 @@ function EditTestForm({onSubmit}) {
                 const test = await dispatch(getTest(testId)).unwrap();
                 setTitle(test.title);
                 setQuestions(test.questions);
-                setNrQuestions(test.questions.length);
             }
             catch(e){
                 console.log(e);
@@ -93,7 +93,7 @@ function EditTestForm({onSubmit}) {
             <input id="title" type="text" name="title" value={title} onChange={e => { setTitle(e.target.value) }} className={css.input}></input>
         </div>
 
-        {idsArray(nrQuestions).map((id, idx) => <div className={css.fieldContainer}>
+        {idsArray(questions.length).map((id, idx) => <div className={css.fieldContainer}>
             <label for={id}>{labelFromId(id)}</label>
             <div className={css.field}>
                 <textarea id={id} name={id} value={questions[idx]} onChange={editQuestion} rows={3} className={css.textarea}></textarea>
