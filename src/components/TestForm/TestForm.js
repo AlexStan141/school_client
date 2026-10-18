@@ -19,35 +19,35 @@ const idsArray = (nrQuestions) => {
 
 function TestForm({onSubmit}) {
 
-    const [title, setTitle] = useState("");
-    const [questions, setQuestions] = useState([]);
+    const [test, setTest] = useState({title: "", questions: []});
     const dispatch = useDispatch();
 
     const addQuestion = () => {
-        setQuestions([...questions, ""]);
+        setTest({...test, questions: [...test.questions, ""]});
     }
 
     const editQuestion = (evt) => {
         const { name, value } = evt.target;
         const questionNrAsString = name.replace('question', '');
         const questionNr = parseInt(questionNrAsString) - 1;
-        setQuestions(questions.map((currentQuestion, idx) => {
+        
+        setTest({...test, questions: test.questions.map((currentQuestion, idx) => {
             if (idx == questionNr) {
                 return value;
             } else {
                 return currentQuestion;
             }
-        }))
+        })})
     }
 
-    const deleteQuestion = (deletedQuestion) => {
-        setQuestions(questions.filter(currentQuestion => currentQuestion !== deletedQuestion))
+    const deleteQuestion = (idx) => {
+        setTest({...test, questions: test.questions.filter((_, qIdx) => idx !== qIdx)})
     }
 
     const submitTest = async (e) => {
         e.preventDefault();
         try{
-            await dispatch(addTest({ title, questions })).unwrap();
+            await dispatch(addTest({ title: test.title, questions: test.questions })).unwrap();
             onSubmit(null);
         }
         catch(error){
@@ -72,14 +72,16 @@ function TestForm({onSubmit}) {
     return <form className={css.form} onSubmit={submitTest}>
         <div className={css.fieldContainer}>
             <label for="title">Title</label>
-            <input id="title" type="text" name="title" value={title} onChange={e => { setTitle(e.target.value) }} className={css.input}></input>
+            <input id="title" type="text" name="title" value={test.title} onChange={e => { 
+                setTest({...test, title: e.target.value})
+            }} className={css.input}></input>
         </div>
 
-        {idsArray(questions.length).map((id, idx) => <div className={css.fieldContainer}>
+        {idsArray(test.questions.length).map((id, idx) => <div className={css.fieldContainer}>
             <label for={id}>{labelFromId(id)}</label>
             <div className={css.field}>
-                <textarea id={id} name={id} value={questions[idx]} onChange={editQuestion} rows={3} className={css.textarea}></textarea>
-                <button type="button" onClick={() => { deleteQuestion(questions[idx]) }} className={css.button + " " + css.danger}>Delete question</button>
+                <textarea id={id} name={id} value={test.questions[idx]} onChange={editQuestion} rows={3} className={css.textarea}></textarea>
+                <button type="button" onClick={() => { deleteQuestion(idx) }} className={css.button + " " + css.danger}>Delete question</button>
             </div>
         </div>)}
 

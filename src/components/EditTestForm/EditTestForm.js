@@ -1,7 +1,7 @@
 import css from "./EditTestForm.module.css";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { selectTestLoaded } from "../../redux/test/selectors";
 import { editTest, getTest, processChange } from "../../redux/test/operations";
 import { getCurrentUser } from "../../redux/auth/selectors";
@@ -24,54 +24,54 @@ function EditTestForm({onSubmit}) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { testId } = useParams();
-    const [title, setTitle] = useState("");
-    const [questions, setQuestions] = useState([]);
+    const [test, setTest] = useState({title: "", questions: []});
     const loaded = useSelector(selectTestLoaded);
-    const currentUser = useSelector(getCurrentUser);
+    const currentUser = useSelector(getCurrentUser, shallowEqual);
 
     console.log(currentUser);
 
     const addQuestion = () => {
-        setQuestions([...questions, ""]);
+        setTest({...test, questions: [...test.questions, ""]});
     }
 
     const editQuestion = (evt) => {
         const { name, value } = evt.target;
         const questionNrAsString = name.replace('question', '');
         const questionNr = parseInt(questionNrAsString) - 1;
-        setQuestions(questions.map((currentQuestion, idx) => {
+
+        setTest({...test, questions: test.questions.map((currentQuestion, idx) => {
             if (idx == questionNr) {
                 return value;
             } else {
                 return currentQuestion;
             }
-        }))
+        })})
+
     }
 
     const submitTest = async (e) => {
         e.preventDefault();
         try{
             await dispatch(processChange()).unwrap();
-            await dispatch(editTest({ testId, title, questions })).unwrap();
+            await dispatch(editTest({ testId, title: test.title, questions: test.questions })).unwrap();
             navigate("/index/tests");
         } catch(error){
             console.log(error);
         }
     }
 
-    const deleteQuestion = (deletedQuestion) => {
-        setQuestions(questions.filter(currentQuestion => currentQuestion !== deletedQuestion))
+    const deleteQuestion = (idx) => {
+        setTest({...test, questions: test.questions.filter((_, qIdx) => idx !== qIdx)})
     }
 
     useEffect(() => {
 
         const loadData = async () => {
             try{
-                const processTest = await dispatch(processChange()).unwrap(); //Daca am de ex. un flash message pe pagina de teste
-                                                                            //dupa intrare pe edit test vreau sa dispara
+                await dispatch(processChange()).unwrap(); //Daca am de ex. un flash message pe pagina de teste
+                                                        //dupa intrare pe edit test vreau sa dispara
                 const test = await dispatch(getTest(testId)).unwrap();
-                setTitle(test.title);
-                setQuestions(test.questions);
+                setTest({title: test.title, questions: test.questions});
             }
             catch(e){
                 console.log(e);
@@ -90,14 +90,16 @@ function EditTestForm({onSubmit}) {
 
         <div className={css.fieldContainer}>
             <label for="title">Title</label>
-            <input id="title" type="text" name="title" value={title} onChange={e => { setTitle(e.target.value) }} className={css.input}></input>
+            <input id="title" type="text" name="title" value={test.title} onChange={
+                e => { setTest({...test, title: e.target.value}) }
+            } className={css.input}></input>
         </div>
 
-        {idsArray(questions.length).map((id, idx) => <div className={css.fieldContainer}>
+        {idsArray(test.questions.length).map((id, idx) => <div className={css.fieldContainer}>
             <label for={id}>{labelFromId(id)}</label>
             <div className={css.field}>
-                <textarea id={id} name={id} value={questions[idx]} onChange={editQuestion} rows={3} className={css.textarea}></textarea>
-                <button type="button" onClick={() => { deleteQuestion(questions[idx]) }} className={css.button + " " + css.danger}>Delete question</button>
+                <textarea id={id} name={id} value={test.questions[idx]} onChange={editQuestion} rows={3} className={css.textarea}></textarea>
+                <button type="button" onClick={() => { deleteQuestion(idx) }} className={css.button + " " + css.danger}>Delete question</button>
             </div>
         </div>)}
 
