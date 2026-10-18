@@ -30,7 +30,7 @@ function TestList() {
                 <p>{test.title}</p>
                 <div className={css.actions}>
                     <button onClick={() => {
-                        //Do nothing
+                        navigate(`/index/solve_test`);
                     }}>Start</button>
 
                     {user.role == 'teacher' && 

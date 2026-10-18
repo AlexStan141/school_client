@@ -13,6 +13,7 @@ import TestsPage from "../pages/TestsPage/TestsPage";
 import AddTestPage from "../pages/AddTestPage/AddTestPage";
 import EditTestPage from "../pages/EditTestPage/EditTestPage";
 import { RoleRoute } from "./RoleRoute";
+import SolveTestForm from "./SolveTestForm/SolveTestForm";
 
 function App() {
 
@@ -67,6 +68,12 @@ function App() {
           path="edit_test/:testId" 
           element={
             <RoleRoute component={<EditTestPage/>} role="teacher"/>
+          }
+        ></Route>
+        <Route
+          path="solve_test"
+          element={
+            <RoleRoute component={<SolveTestForm/>} role="student"/>
           }
         ></Route>
       </Route>
