@@ -13,6 +13,7 @@ const handleRejected = (state, action) => {
 const testsSlice = createSlice({
     name: "tests",
     initialState: {
+        displayedTest: {},
         items: [],
         loaded: false,
         error: null,

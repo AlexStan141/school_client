@@ -47,7 +47,7 @@ function TestForm({onSubmit}) {
     const submitTest = async (e) => {
         e.preventDefault();
         try{
-            await dispatch(addTest({ title: test.title, questions: test.questions })).unwrap();
+            await dispatch(addTest({ title: test.title, questions: test.questions, nrDisplayedQuestions: test.nrDisplayedQuestions })).unwrap();
             onSubmit(null);
         }
         catch(error){
@@ -74,6 +74,13 @@ function TestForm({onSubmit}) {
             <label for="title">Title</label>
             <input id="title" type="text" name="title" value={test.title} onChange={e => { 
                 setTest({...test, title: e.target.value})
+            }} className={css.input}></input>
+        </div>
+
+        <div className={css.fieldContainer}>
+            <label for="nrDisplayedQuestions">Number of displayed questions</label>
+            <input id="nrDisplayedQuestions" type="text" name="nrDisplayedQuestions" value={test.nrDisplayedQuestions} onChange={e => { 
+                setTest({...test, nrDisplayedQuestions: e.target.value})
             }} className={css.input}></input>
         </div>
 

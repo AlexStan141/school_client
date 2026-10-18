@@ -53,7 +53,7 @@ function EditTestForm({onSubmit}) {
         e.preventDefault();
         try{
             await dispatch(processChange()).unwrap();
-            await dispatch(editTest({ testId, title: test.title, questions: test.questions })).unwrap();
+            await dispatch(editTest({ testId, title: test.title, questions: test.questions, nrDisplayedQuestions: test.nrDisplayedQuestions })).unwrap();
             navigate("/index/tests");
         } catch(error){
             console.log(error);
@@ -71,7 +71,7 @@ function EditTestForm({onSubmit}) {
                 await dispatch(processChange()).unwrap(); //Daca am de ex. un flash message pe pagina de teste
                                                         //dupa intrare pe edit test vreau sa dispara
                 const test = await dispatch(getTest(testId)).unwrap();
-                setTest({title: test.title, questions: test.questions});
+                setTest({title: test.title, questions: test.questions, nrDisplayedQuestions: test.nrDisplayedQuestions});
             }
             catch(e){
                 console.log(e);
@@ -93,6 +93,13 @@ function EditTestForm({onSubmit}) {
             <input id="title" type="text" name="title" value={test.title} onChange={
                 e => { setTest({...test, title: e.target.value}) }
             } className={css.input}></input>
+        </div>
+
+        <div className={css.fieldContainer}>
+            <label for="nrDisplayedQuestions">Number of displayed questions</label>
+            <input id="nrDisplayedQuestions" type="text" name="nrDisplayedQuestions" value={test.nrDisplayedQuestions} onChange={e => { 
+                setTest({...test, nrDisplayedQuestions: e.target.value})
+            }} className={css.input}></input>
         </div>
 
         {idsArray(test.questions.length).map((id, idx) => <div className={css.fieldContainer}>

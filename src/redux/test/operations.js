@@ -27,9 +27,9 @@ export const fetchTeacherTests = createAsyncThunk("tests/fetchTeacherTests",
 )
 
 export const addTest = createAsyncThunk("tests/addTest", 
-    async({title, questions}, thunkAPI) => {
+    async({title, questions, nrDisplayedQuestions}, thunkAPI) => {
         try{
-            const response = await axios.post(`/test`, {title, questions});
+            const response = await axios.post(`/test`, {title, questions, nrDisplayedQuestions});
             if (response.data.message) {
                 throw ({ "message": response.data.message });
             }
@@ -52,9 +52,9 @@ export const getTest = createAsyncThunk("tests/getTest",
 )
 
 export const editTest = createAsyncThunk("tests/editTest",
-    async({ testId, title, questions}, thunkAPI) => {
+    async({ testId, title, questions, nrDisplayedQuestions}, thunkAPI) => {
         try{
-            const response = await axios.put(`/test/${testId}`, {title, questions});
+            const response = await axios.put(`/test/${testId}`, {title, questions, nrDisplayedQuestions});
             if (response.data.message) {
                 throw ({ "message": response.data.message });
             }

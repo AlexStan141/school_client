@@ -10,8 +10,6 @@ import css from "./AddTestPage.module.css";
 function AddTestPage() {
 
     const error = useSelector(selectTestError);
-    const user = useSelector(getCurrentUser);
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const submit = (error) => {
