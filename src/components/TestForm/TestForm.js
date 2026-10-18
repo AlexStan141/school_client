@@ -19,7 +19,7 @@ const idsArray = (nrQuestions) => {
 
 function TestForm({onSubmit}) {
 
-    const [test, setTest] = useState({title: "", questions: []});
+    const [test, setTest] = useState({title: "", questions: [], nrDisplayedQuestions: 0});
     const dispatch = useDispatch();
 
     const addQuestion = () => {

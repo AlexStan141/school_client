@@ -24,11 +24,26 @@ function EditTestForm({onSubmit}) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { testId } = useParams();
-    const [test, setTest] = useState({title: "", questions: []});
     const loaded = useSelector(selectTestLoaded);
     const currentUser = useSelector(getCurrentUser, shallowEqual);
 
-    console.log(currentUser);
+    const [test, setTest] = useState(null);
+
+    useEffect(() => {
+
+        async function loadData(){
+            try{
+                const response = await dispatch(getTest(testId));
+                setTest(response.payload);
+            } catch(e) {
+                console.log(e);
+            }
+            
+        }
+
+        loadData();
+
+    }, [])
 
     const addQuestion = () => {
         setTest({...test, questions: [...test.questions, ""]});
@@ -38,15 +53,13 @@ function EditTestForm({onSubmit}) {
         const { name, value } = evt.target;
         const questionNrAsString = name.replace('question', '');
         const questionNr = parseInt(questionNrAsString) - 1;
-
-        setTest({...test, questions: test.questions.map((currentQuestion, idx) => {
-            if (idx == questionNr) {
+        setTest({...test, questions: test.questions.map((q, idx) => {
+            if(idx == questionNr){
                 return value;
             } else {
-                return currentQuestion;
+                return q;
             }
-        })})
-
+        })});
     }
 
     const submitTest = async (e) => {
@@ -61,28 +74,10 @@ function EditTestForm({onSubmit}) {
     }
 
     const deleteQuestion = (idx) => {
-        setTest({...test, questions: test.questions.filter((_, qIdx) => idx !== qIdx)})
+        setTest({...test, questions: test.questions.filter((q, qIdx) => idx !== qIdx)});
     }
 
-    useEffect(() => {
-
-        const loadData = async () => {
-            try{
-                await dispatch(processChange()).unwrap(); //Daca am de ex. un flash message pe pagina de teste
-                                                        //dupa intrare pe edit test vreau sa dispara
-                const test = await dispatch(getTest(testId)).unwrap();
-                setTest({title: test.title, questions: test.questions, nrDisplayedQuestions: test.nrDisplayedQuestions});
-            }
-            catch(e){
-                console.log(e);
-            }
-        }
-
-        loadData();
-
-    }, [dispatch])
-
-    if(!loaded){
+    if(!test){
         return <div>Test data is loading! Please wait!</div>
     }
 

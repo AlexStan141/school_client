@@ -13,7 +13,6 @@ const handleRejected = (state, action) => {
 const testsSlice = createSlice({
     name: "tests",
     initialState: {
-        displayedTest: {},
         items: [],
         loaded: false,
         error: null,
@@ -50,7 +49,6 @@ const testsSlice = createSlice({
             state.loaded = true;
         })
         .addCase(getTest.fulfilled, (state, action) => {
-            state.displayedTest = action.payload;
             state.error = null;
             state.loaded = true;
         })
