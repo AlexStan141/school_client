@@ -10,7 +10,8 @@
 .formElement{
     width: 300px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 20px;
 }
 
 .error {

@@ -19,7 +19,13 @@ const idsArray = (nrQuestions) => {
 
 function TestForm({onSubmit}) {
 
-    const [test, setTest] = useState({title: "", questions: [], nrDisplayedQuestions: 0});
+    const [test, setTest] = useState({
+        title: "", 
+        questions: [], 
+        nrDisplayedQuestions: 0, 
+        year: 0,
+        promotionScore: 50
+    });
     const dispatch = useDispatch();
 
     const addQuestion = () => {
@@ -47,7 +53,13 @@ function TestForm({onSubmit}) {
     const submitTest = async (e) => {
         e.preventDefault();
         try{
-            await dispatch(addTest({ title: test.title, questions: test.questions, nrDisplayedQuestions: test.nrDisplayedQuestions })).unwrap();
+            await dispatch(addTest({ 
+                title: test.title, 
+                questions: test.questions, 
+                nrDisplayedQuestions: test.nrDisplayedQuestions,
+                year: test.year,
+                promotionScore: test.promotionScore
+            })).unwrap();
             onSubmit(null);
         }
         catch(error){
@@ -79,9 +91,23 @@ function TestForm({onSubmit}) {
 
         <div className={css.fieldContainer}>
             <label for="nrDisplayedQuestions">Number of displayed questions</label>
-            <input id="nrDisplayedQuestions" type="text" name="nrDisplayedQuestions" value={test.nrDisplayedQuestions} onChange={e => { 
+            <input id="nrDisplayedQuestions" type="number" name="nrDisplayedQuestions" value={test.nrDisplayedQuestions} onChange={e => { 
                 setTest({...test, nrDisplayedQuestions: e.target.value})
             }} className={css.input}></input>
+        </div>
+
+        <div className={css.fieldContainer}>
+            <label for="year">Year</label>
+            <input id="year" type="number" name="year" value={test.year} onChange={e => { 
+                setTest({...test, year: e.target.value})
+            }} className={css.input}></input>
+        </div>
+
+        <div className={css.fieldContainer}>
+            <label for="promotionScore">Promotion Score</label>
+            <input id="promotionScore" type="number" name="promotionScore" value={test.promotionScore} onChange={e => {
+                setTest({...test, promotionScore: e.target.value})
+            }}></input>
         </div>
 
         {idsArray(test.questions.length).map((id, idx) => <div className={css.fieldContainer}>
